@@ -1,5 +1,5 @@
 def add(a, b):
-    #add b from a
+    #add b to a
     return a+b
 
 def sub(a, b):
