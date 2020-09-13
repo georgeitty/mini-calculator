@@ -7,6 +7,6 @@ def sub(a, b):
     return a-b
 
 def mult(a, b):
-    #multiple b with a
+    #multiple a with b
     return b*a
 
