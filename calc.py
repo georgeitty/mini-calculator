@@ -8,5 +8,5 @@ def sub(a, b):
 
 def mult(a, b):
     #multiple a with b
-    return b*a
+    return b
 
