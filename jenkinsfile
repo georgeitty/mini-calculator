@@ -43,6 +43,8 @@ pipeline {
         stage('MasterMerge') {
             steps {
                 script { 
+                    echo "current branch -> $env.GIT_BRANCH"
+                    echo "current branch -> $env.BRANCH_NAME"
                     if (env.BRANCH_NAME != 'origin/master') {
                         echo "current branch -> $env.GIT_BRANCH"
                         sh 'git checkout master'
