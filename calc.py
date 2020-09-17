@@ -4,7 +4,7 @@ def add(a, b):
 
 def sub(a, b):
     #sub b from a
-    return b-a
+    return a-b
 
 def mult(a, b):
     #multiple a with b
