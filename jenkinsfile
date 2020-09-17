@@ -12,10 +12,10 @@ pipeline {
         }
         stage('Test') {
             steps {
-                withCredentials([[credentialsId: 'github-api-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                    sh """
-                    echo uname=$USERNAME pwd=$PASSWORD
-                    """
+                withCredentials([string(credentialsId: 'github-api-token', variable: 'TOKEN')]) {
+                    sh '''
+                    echo "Token: $TOKEN"
+                    '''
                 }
                 echo 'Testing..'
                 sh 'python3 --version'
