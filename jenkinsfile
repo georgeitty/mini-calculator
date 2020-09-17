@@ -4,16 +4,24 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                ls -l
+                chmod +x calc_test.py
+                chmod +x calc.py
+                ls -l
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
+                sh 'python3 --version'
+                sh 'python3 -m unittest calc_test.py'
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+                echo "started docker stage..."
+                sh 'docker build -t "georgeitty/calc-app-image$BUILD_NUMBER" .'
             }
         }
     }
