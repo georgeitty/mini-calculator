@@ -12,24 +12,30 @@ pipeline {
         }
         stage('Test') {
             steps {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'github-api-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                    sh """
-                    echo uname=$USERNAME pwd=$PASSWORD
-                    """
-                }
                 echo 'Testing..'
                 sh 'python3 --version'
                 sh 'python3 -m unittest calc_test.py'
             }
             post { 
                 success { 
-                    echo 'it was success!'
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'github-api-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                        sh """
+                        curl "https://api.GitHub.com/repos/georgeitty/mini-calculator/statuses/$GIT_COMMIT?access_token=$PASSWORD" \
+                        -H "Content-Type: application/json" \
+                        -X POST \
+                        -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://159.65.178.239:8080/job/calculator_declarative_pipeline/$BUILD_NUMBER/console\"}"
+                        """
+                    }
                 }
                 failure {
-                    echo 'it was fail!'
-                }
-                always {
-                    echo 'it was always!'
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'github-api-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                        sh """
+                        curl "https://api.GitHub.com/repos/georgeitty/mini-calculator/statuses/$GIT_COMMIT?access_token=$PASSWORD" \
+                        -H "Content-Type: application/json" \
+                        -X POST \
+                        -d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://159.65.178.239:8080/job/calculator_declarative_pipeline/$BUILD_NUMBER/console\"}"
+                        """
+                    }
                 }
             }
         }
