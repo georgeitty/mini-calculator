@@ -21,6 +21,17 @@ pipeline {
                 sh 'python3 --version'
                 sh 'python3 -m unittest calc_test.py'
             }
+            post { 
+                success { 
+                    echo 'it was success!'
+                }
+                failure {
+                    echo 'it was fail!'
+                }
+                always {
+                    echo 'it was always!'
+                }
+            }
         }
         /*
         stage('Deploy') {
