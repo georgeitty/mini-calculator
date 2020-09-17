@@ -5,10 +5,8 @@ pipeline {
             steps {
                 echo "current branch -> $env.GIT_BRANCH"
                 echo 'Building..'
-                sh 'ls -l'
                 sh 'chmod +x calc_test.py'
                 sh 'chmod +x calc.py'
-                sh 'ls -l'
             }
         }
         stage('Test') {
@@ -44,8 +42,7 @@ pipeline {
             steps {
                 script { 
                     echo "current branch -> $env.GIT_BRANCH"
-                    echo "current branch -> $env.BRANCH_NAME"
-                    if (env.BRANCH_NAME != 'origin/master') {
+                    if (env.GIT_BRANCH != 'origin/master') {
                         echo "current branch -> $env.GIT_BRANCH"
                         sh 'git checkout master'
                         sh "git merge $env.GIT_BRANCH --squash"
