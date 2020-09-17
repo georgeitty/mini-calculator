@@ -10,4 +10,6 @@ def mult(a, b):
     #multiple a with b
     return a*b
 
+def div(a, b):
+    return a//b
 
