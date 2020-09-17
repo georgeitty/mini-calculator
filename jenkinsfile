@@ -5,8 +5,8 @@ pipeline {
             steps {
                 echo 'Building..'
                 ls -l
-                chmod +x calc_test.py
-                chmod +x calc.py
+                sh 'chmod +x calc_test.py'
+                sh 'chmod +x calc.py'
                 ls -l
             }
         }
