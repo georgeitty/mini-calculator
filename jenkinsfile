@@ -43,7 +43,7 @@ pipeline {
         stage('MasterMerge') {
             when {
                 not {
-                    branch 'origin/master'
+                    $env.GIT_BRANCH 'origin/master'
                 }
             }
             steps {
