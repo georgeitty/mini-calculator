@@ -12,5 +12,5 @@ def mult(a, b):
 
 def div(a, b):
     #div 2 variables
-    return a/b
+    return a//b
 
