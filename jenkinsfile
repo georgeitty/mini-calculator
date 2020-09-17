@@ -4,10 +4,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                ls -l
+                sh 'ls -l'
                 sh 'chmod +x calc_test.py'
                 sh 'chmod +x calc.py'
-                ls -l
+                sh 'ls -l'
             }
         }
         stage('Test') {
