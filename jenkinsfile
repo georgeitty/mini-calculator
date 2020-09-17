@@ -3,11 +3,10 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo "current branch -> $env.GIT_BRANCH"
                 echo 'Building..'
-                sh 'ls -l'
                 sh 'chmod +x calc_test.py'
                 sh 'chmod +x calc.py'
-                sh 'ls -l'
             }
         }
         stage('Test') {
@@ -41,7 +40,17 @@ pipeline {
         }
         stage('MasterMerge') {
             steps {
-                sh 'git log'
+                script { 
+                    echo "current branch -> $env.GIT_BRANCH"
+                    if (env.GIT_BRANCH != 'origin/master') {
+                        echo "current branch -> $env.GIT_BRANCH"
+                        sh 'git checkout master'
+                        sh "git merge $env.GIT_BRANCH --squash"
+                        sh "git commit -am \"merged $env.GIT_BRANCH with master\""
+                    } else {
+                        echo 'master branch nothing to merge'
+                    }
+                }
             }
         }
         /*
