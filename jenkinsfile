@@ -12,11 +12,17 @@ pipeline {
         }
         stage('Test') {
             steps {
+                withCredentials([[credentialsId: 'github-api-token', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                    sh """
+                    echo uname=$USERNAME pwd=$PASSWORD
+                    """
+                }
                 echo 'Testing..'
                 sh 'python3 --version'
                 sh 'python3 -m unittest calc_test.py'
             }
         }
+        /*
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
@@ -34,5 +40,6 @@ pipeline {
                 }
             }
         }
+        */
     }
 }
