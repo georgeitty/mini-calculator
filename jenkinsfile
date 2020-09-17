@@ -39,6 +39,11 @@ pipeline {
                 }
             }
         }
+        stage('MasterMerge') {
+            steps {
+                echo 'hello'
+            }
+        }
         /*
         stage('Deploy') {
             steps {
