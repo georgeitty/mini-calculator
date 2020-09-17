@@ -23,7 +23,7 @@ pipeline {
                 echo "started docker stage..."
                 script {
                     def imageName = "georgeitty/calc-app-image$BUILD_NUMBER"
-                    docker.build(imageName, '--no-cache=true dockerbuild')
+                    docker.build(imageName, '--no-cache=true .')
                 }
                 //sh 'docker build -t "georgeitty/calc-app-image$BUILD_NUMBER" .'
                 withDockerRegistry([ credentialsId: "7078ee07-8329-4d1e-8e29-30eb0d9da770", url: "" ]){
