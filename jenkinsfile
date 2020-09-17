@@ -18,10 +18,10 @@ pipeline {
             }
         }
         stage('Deploy') {
+            def imageName = "georgeitty/calc-app-image$BUILD_NUMBER"
             steps {
                 echo 'Deploying....'
                 echo "started docker stage..."
-                String imageName = "georgeitty/calc-app-image$BUILD_NUMBER"
                 script {
                     docker.build(imageName, '--no-cache=true dockerbuild')
                 }
