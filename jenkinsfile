@@ -38,22 +38,17 @@ pipeline {
                 }
             }
         }
-        stage('MasterMerge') {
+        stage('MasterCheck') {
             steps {
                 script { 
-                    echo "current branch -> $env.GIT_BRANCH"
                     if (env.GIT_BRANCH != 'origin/master') {
                         echo "current branch -> $env.GIT_BRANCH"
-                        sh 'git checkout master'
-                        sh "git merge $env.GIT_BRANCH --squash"
-                        sh "git commit -am \"merged $env.GIT_BRANCH with master\""
                     } else {
                         echo 'master branch nothing to merge'
                     }
                 }
             }
         }
-        /*
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
@@ -62,7 +57,6 @@ pipeline {
                     String imageName = "georgeitty/calc-app-image$BUILD_NUMBER"
                     docker.build(imageName, '--no-cache=true .')
                 }
-                //sh 'docker build -t "georgeitty/calc-app-image$BUILD_NUMBER" .'
                 withDockerRegistry([ credentialsId: "7078ee07-8329-4d1e-8e29-30eb0d9da770", url: "" ]){
                     script {
                         String imageName = "georgeitty/calc-app-image$BUILD_NUMBER"
@@ -71,6 +65,5 @@ pipeline {
                 }
             }
         }
-        */
     }
 }
