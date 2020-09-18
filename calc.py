@@ -8,6 +8,6 @@ def sub(a, b):
 
 def mult(a, b):
     #multiple a with B
-    return a*b
+    return b*a
 
 
